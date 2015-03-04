@@ -97,17 +97,7 @@ biocontainer<- function
 				
 				#################################################################################################################
 				  
-                                if (is.data.frame(sourcedata) || is.matrix(sourcedata))
-				      { filedata = as.data.frame(sourcedata)
-				      }
-                                       else 
-				      {
-                                       filedata = read.table(sourcedata, header=TRUE,sep=field_delimiter,na.strings="NA", dec=".", strip.white=TRUE)
-				      }
-                   
-				if ( !length(grep("tmedwater",names(filedata))) > 0 || !length( grep("dates",names(filedata))) > 0 )
-                                       { stop( "Field dates and tmedwater in datasource are needed.Check header file and change names.")
-				       }				  
+                               				  
   
 				#################################################################################################################
 				# Instance an objects
@@ -118,20 +108,30 @@ biocontainer<- function
 				# Check row index
 				if  ( watermodel_fit == TRUE && is.null(watermodel)) 
 				    {
-				 
-				if ( date_format == "DMY") {filedata$dates=dmy(filedata$dates)};
-                                if ( date_format == "MDY") {filedata$dates=mdy(filedata$dates)};
+				     if (is.data.frame(sourcedata) || is.matrix(sourcedata))
+				      { filedata = as.data.frame(sourcedata)
+				      }
+                                       else 
+				      {
+                                       filedata = read.table(sourcedata, header=TRUE,sep=field_delimiter,na.strings="NA", dec=".", strip.white=TRUE)
+				      }
                    
-				rownames(filedata)<-1:nrow(filedata)
+				     if ( !length(grep("tmedwater",names(filedata))) > 0 || !length( grep("dates",names(filedata))) > 0 )
+                                       { stop( "Field dates and tmedwater in datasource are needed.Check header file and change names.")
+				       }
+				     if ( date_format == "DMY") {filedata$dates=dmy(filedata$dates)};
+                                     if ( date_format == "MDY") {filedata$dates=mdy(filedata$dates)};
+                   
+			         	rownames(filedata)<-1:nrow(filedata)
 				
-				filedata$daylength =day_length(as.Date(as.character(filedata$dates)),lon_geo,lat_geo)$daylength;
+				     filedata$daylength =day_length(as.Date(as.character(filedata$dates)),lon_geo,lat_geo)$daylength;
 				   
-				full_ts = try(as.xts(zoo(data.frame(daylength=filedata$daylength,tmedwater=filedata$tmedwater),as.Date(as.character(filedata$dates)))))
+				     full_ts = try(as.xts(zoo(data.frame(daylength=filedata$daylength,tmedwater=filedata$tmedwater),as.Date(as.character(filedata$dates)))))
 				
-				if   (!exists("full_ts"))
+				     if   (!exists("full_ts"))
 				         {
 						 stop( "Timeseries creation invalid! Check data and dates in data sources")
-			             }
+			                 }
 				
 				
 				###################################################################################################################
