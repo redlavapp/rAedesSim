@@ -116,7 +116,8 @@ biocontainer<- function
 				
 				#################################################################################################################
 				# Check row index
-				
+				if  ( watermodel_fit == TRUE && is.null(watermodel)) 
+				    {
 				 
 				if ( date_format == "DMY") {filedata$dates=dmy(filedata$dates)};
                                 if ( date_format == "MDY") {filedata$dates=mdy(filedata$dates)};
@@ -135,8 +136,7 @@ biocontainer<- function
 				
 				###################################################################################################################
 				# Prepare 
-				if  ( watermodel_fit == TRUE && is.null(watermodel)) 
-				{   
+			   
 				    full_ts=merge.xts(full_ts,meteodata$timeseries)
 				    full_ts_df=na.omit(as.data.frame(full_ts))
 				   	rownames(full_ts_df) <- NULL;
