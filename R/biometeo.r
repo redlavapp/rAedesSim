@@ -20,22 +20,22 @@
 
 
 biometeo <- function(meteo,
-                    i_biocontainer,
-					deltatmax=0,
-					deltatmin=0,
-					deltatmed=0,
-					tresh_rain=4,
-					weigth_k=5
-					)
+                     i_biocontainer,
+		     deltatmax=0,
+		     deltatmin=0,
+		     deltatmed=0,
+		     tresh_rain=4,
+		     weigth_k=5
+	             )
                     {
 						    
-					require(xts);
-					require(lubridate);
+		     require(xts);
+		     require(lubridate);
 					
-                    if (class(meteo)!="meteodata") { stop(" meteo argument must be an object meteodata" ) } 
-					if (class(i_biocontainer)!="biocontainer") { stop("Object biocontainer argument must be an object biocontainer" ) } 
+                     if (class(meteo)!="meteodata") { stop(" meteo argument must be an object meteodata" ) } 
+		     if (class(i_biocontainer)!="biocontainer") { stop("Object biocontainer argument must be an object biocontainer" ) } 
 							
-					####################################################################################################################
+		      ####################################################################################################################
                               
 					tmax=meteo$tmax+deltatmax
 					tmin=meteo$tmin+deltatmin
@@ -44,7 +44,7 @@ biometeo <- function(meteo,
 					dates=as.Date(as.character(meteo$dates));
 					day_len=day_length(dates,as.numeric(i_biocontainer$lon),as.numeric(i_biocontainer$lat))$daylength;		
 					#####################################################################################################################
-                    # Water temperature estimation
+                                        # Water temperature estimation
 							
 					new_data=data.frame(daylength=day_len,tmed=tmed,tmin=tmin)
 							
@@ -53,7 +53,7 @@ biometeo <- function(meteo,
 					w_tmed[id.na]<-tmed[id.na] # replace missing values with mean temperatures 
 							
 					#######################################################################################################################
-                    # Water evaporation temperature estimation
+                                        # Water evaporation temperature estimation
 							
 					tot_evap=NA;
 					weight_dry=NA;
@@ -66,7 +66,7 @@ biometeo <- function(meteo,
 						}
 										 
 					#######################################################################################################################
-                    # Daylength and related parameter estimation ( diapause
+                                        # Daylength and related parameter estimation ( diapause
 							
 			
 					diapause_emergency=sapply(day_len,diapause_rate);
@@ -77,31 +77,31 @@ biometeo <- function(meteo,
 						prevdrydays=drydaycons(meteo$prec,S=tresh_rain)
 						}
 					
-                    ts_zoo=as.xts(zoo(data.frame(tmedwater=w_tmed,tmed=tmed,diapause=diapause_emergency,lengthday=day_len,cdrydays=prevdrydays),dates))				
+                                        ts_zoo=as.xts(zoo(data.frame(tmedwater=w_tmed,tmed=tmed,diapause=diapause_emergency,lengthday=day_len,cdrydays=prevdrydays),dates))				
 					
 					#######################################################################################################################
 							
-					object <- list(         tmed_est=tmed,
-							                twater_est=w_tmed,
-							              	prec=meteo$prec,
-											rhum=meteo$urel,
-											daylength=day_len,
-											ndays=meteo$ndays,
-											diapause_emergency=diapause_emergency,
-											tot_evap=tot_evap,
-											tresh_rain_dry=tresh_rain,
-											prevdrydays=prevdrydays,						   
-                                            weight_k=weigth_k,
-											weight_dry=weight_dry,
-											timeformat=meteo$timeformat,
-											dates=dates,
-											timeseries=ts_zoo
+					object <- list(tmed_est=tmed,
+						        twater_est=w_tmed,
+							prec=meteo$prec,
+							rhum=meteo$urel,
+							daylength=day_len,
+							ndays=meteo$ndays,
+							diapause_emergency=diapause_emergency,
+							tot_evap=tot_evap,
+							tresh_rain_dry=tresh_rain,
+							prevdrydays=prevdrydays,						   
+                                                        weight_k=weigth_k,
+							weight_dry=weight_dry,
+							timeformat=meteo$timeformat,
+							dates=dates,
+							timeseries=ts_zoo
 			                                )
-                    attr(object,"tmed_est") <- "Daily mean air temperature estimated"
+                                        attr(object,"tmed_est") <- "Daily mean air temperature estimated"
 					attr(object,"twater_est") <- "Daily mean water temperature estimated"
 					attr(object,"prec") <- "Daily precipitation"
-                    attr(object,"rhum") <- "Daily precipitation"
-                    attr(object,"tot_evap") <- "Mass of evaporative losses for day in mg"
+                                        attr(object,"rhum") <- "Daily precipitation"
+                                        attr(object,"tot_evap") <- "Mass of evaporative losses for day in mg"
 					attr(object,"nrecipients") <- "Number of recipient as proxy of mosquito breeding sites BS"
 					attr(object,"tresh_rain_dry") <- "Rain threshold for effective precipitation"
 					attr(object,"prevdrydays") <- "Consecutive dry days"
