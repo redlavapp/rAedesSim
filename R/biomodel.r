@@ -4,9 +4,9 @@
 #' \code{biomodel} S3 class for biomodel object to be used in rAedesSim package. This is the object that lead simulation.
 #' 
 #' @param i_biopopulation object: rAedesSim object concerning mosquito population.  
-#' @param i_bioparameters object:rAedesSim object concerning biological parameter of mosquito population.
-#' @param i_biometeo object:rAedesSim object concerning biometeorological parameter of location where mosquito population are simulated.  
-#' @param i_biocontainer object:rAedesSim object concerning trap or habitat considered.  
+#' @param i_bioparameters object: rAedesSim object concerning biological parameter of mosquito population.
+#' @param i_biometeo object: rAedesSim object concerning biometeorological parameter of location where mosquito population are simulated.  
+#' @param i_biocontainer object: rAedesSim object concerning trap or habitat considered.  
 #' @param state numeric: State vector  for simulation.The state considered are L1 : Ovideposition rate, L3 : Eggs Mortality rate, 
 #' L4: Eggs2larvae transition rate, L5 : Pupae2Larvae transition rate, L6 larvae Mortality,L7  pupae Mortality
 #' L8 Pupae2adult transition rate, L10 Female adult mortality Default : L1=0,L3=0,L4=0,L5=0,L6=0,L7=0,L8=0,L10=0
@@ -17,7 +17,7 @@
 #' @param ID_sim char string: ID of simulation.Default is FALSE.
 #' @return Rbiosim object Biomodel object
 #' @author  Istituto di Biometeorologia Firenze Italy  Alfonso crisci \email{a.crisci@@ibimet.cnr.it} ASL 2 LUCCA Marco Selmi \email{m.selmi@@usl2.toscana.it} 
-#' @keywords  biomodel 
+#' @keywords  modeling
 #'
 #' 
 #' 
