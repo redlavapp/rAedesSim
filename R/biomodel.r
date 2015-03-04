@@ -219,11 +219,11 @@ biomodel  <- function(i_biopopulation,
 					 ts_parameter=ts_parameter,
 				   	 stocastic=stocastic,
 					 n_sampling=n_sampling,
-					 ID=i_biocointainer$ID,
-					 site_name=i_biocointainer$site_name,
-					 sp_obj=i_biocointainer$sp_obj,
-                                         lat=i_biocointainer$lat,
-			                 lon=i_biocointainer$lon
+					 ID=i_biocontainer$ID,
+					 site_name=i_biocontainer$site_name,
+					 sp_obj=i_biocontainer$sp_obj,
+                                         lat=i_biocontainer$lat,
+			                 lon=i_biocontainer$lon
 					 );
 			            									  
 				               
@@ -232,14 +232,14 @@ biomodel  <- function(i_biopopulation,
 				             	    
                 attr(object,"name_model") <- "Model's name"
                 attr(object,"ID_sim") <- "ID label of simulation"
-                attr(object,"timestep_integration") <- "Time ste of daily integration"
+                attr(object,"timestep_integration") <- "Time step of daily integration"
                 attr(object,"ts_population") <- "Model outcomes of mosquito as multivariate timeseries xts object"
                 attr(object,"ts_parameter") <- "Model outcomes of simulation parameters  xts object"
 		attr(object,"ID")<-"ID label of container set"
                 attr(object,"site_name")<-"Name of sites"
 		attr(object,"sp_obj")<-"SpatialPointDataFrame of location"
 		attr(object,"lat")<-"latitude coordinates of simulations"
-                attr(object,"lon")<-"longitude coordinates of  simulations"
+                attr(object,"lon")<-"longitude coordinates of simulations"
    
                 class(object) <- "biomodel"
                 return(object)
