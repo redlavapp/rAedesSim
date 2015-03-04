@@ -49,15 +49,15 @@ biocontainer<- function
 			   lat=43.5,
 			   lon=11.27,
 			   elevation=100,
-			   CRS="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
+	  		   CRS="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
 			   sourcedata=NULL,
-               meteodata=NULL,
+                           meteodata=NULL,
 			   watermodel=NULL,
-               watermodel_fit=FALSE,
-               model_type="gam",
+                           watermodel_fit=FALSE,
+                           model_type="gam",
 			   date_format="YMD",
-               field_delimiter=",", 
-               ID=c("NA") ,
+                           field_delimiter=",", 
+                           ID=c("NA") ,
 			   site_name=c("NA")			   
 			   ) {
                 
