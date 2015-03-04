@@ -1,0 +1,7 @@
+useDynLib(rAedesSim)
+import(deSolve)
+import(rgdal)
+import(xts)
+import(lubridate)
+import(sp)
+exportPattern(".")
