@@ -37,21 +37,21 @@
 
 biodata <- function(parameter_definition = "Egg counts in trap", 
                     unity_measure = "Integer count", 
-					location, 
+		    location="", 
                     instrument = "Trappola REDLAV Ita",
                     network="",
                     common_name="Zanzara Tigre",
                     scientific_name="Aedes Albopictus",
                     phenology="Eggs Hatching",
                     obs_standard="",
-					sourcedata,
+		    sourcedata,
                     data_provider="ASL Lucca",
                     data_maintaner="Marco Selmi - m.selmi@usl2.toscana.it",
                     data_licence="",
                     field_delimiter=",",
                     lat,
                     lon,
-					elevation,
+		    elevation,
                     CRS="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
                     geonotes="",
                     ID,
@@ -83,13 +83,13 @@ biodata <- function(parameter_definition = "Egg counts in trap",
                     
 					  }
 				     
-					lon_geo=as.numeric(coordinates(newsp))[1]
+				    lon_geo=as.numeric(coordinates(newsp))[1]
 				    lat_geo=as.numeric(coordinates(newsp))[2]
 				   
 				   #################################################################################################################
 				   	
 					
-					if ( is.null(sourcedata)) { stop( "To build meteodata valid object almost a data source is required.\n 
+				   if ( is.null(sourcedata)) { stop( "To build meteodata valid object almost a data source is required.\n 
                                    					   Date of day in YYYY-MM-DD format (dates), 
 													   parameter field.Checking Header is suggested to avoid variable error." 
 													) 
@@ -97,13 +97,13 @@ biodata <- function(parameter_definition = "Egg counts in trap",
 				   
 				   #################################################################################################################
 				  
-                   if (is.data.frame(sourcedata) || is.matrix(sourcedata))
-				      { filedata=as.data.frame(sourcedata)
-					  }
-                   else 
-				      {
-                       filedata=read.table(sourcedata, header=TRUE, sep=field_delimiter,na.strings="NA", dec=".", strip.white=TRUE)
-				       }
+                                    if (is.data.frame(sourcedata) || is.matrix(sourcedata))
+				          { filedata=as.data.frame(sourcedata)
+					   }
+                                     else 
+				          {
+                                           filedata=read.table(sourcedata, header=TRUE, sep=field_delimiter,na.strings="NA", dec=".", strip.white=TRUE)
+				        }
 					
 				    ts_zoo=NULL;
 				    ts_zoo=try(as.xts(zoo(filedata$parameter,as.Date(as.character(filedata$dates)))));
@@ -112,38 +112,38 @@ biodata <- function(parameter_definition = "Egg counts in trap",
 				   
 				    if ( is.null(ts_zoo))
 				       { warning( "Timeseries creation was invalid! Check data and dates in data sources")
-				       }
+				       };
 				  
    				  #################################################################################################################
 				  						 
-				   object <- list(parameter_definition=parameter_definition,
-                                  unity_measure = unity_measure,
-                                  location=location, 
-                                  instrument=instrument,
-                                  network=network,
-                                  common_name=common_name,
-                                  scientific_name=scientific_name,
-                                  phenology=phenology,
-                                  obs_standard=obs_standard,
-                                  data_provider=data_provider,
-                                  data_maintaner=data_maintaner,
-                                  data_licence=data_licence,      
-                                  lat=lat_geo,
-                                  lon=lon_geo,
-								  elevation=elevation,
-                                  CRS=epgs4386,
-                                  geonotes=geonotes,
-                                  ID=ID,
-                                  urban=urban,
-                                  nasa_radiance=nasa_radiance,
-                                  feature_population=feature_population,
-                                  ts_data=ts_zoo,
-						          sp_obj=newsp
+				   object <- list(parameter_definition = parameter_definition,
+                                                  unity_measure = unity_measure,
+                                                  location = location, 
+                                                  instrument = instrument,
+                                                  network = network,
+                                                  common_name = common_name,
+                                                  scientific_name = scientific_name,
+                                                  phenology = phenology,
+                                                  obs_standard = obs_standard,
+                                                  data_provider = data_provider,
+                                                  data_maintaner = data_maintaner,
+                                                  data_licence = data_licence,      
+                                                  lat = lat_geo,
+                                                  lon = lon_geo,
+						  elevation = elevation,
+                                                  CRS = epgs4386,
+                                                  geonotes = geonotes,
+                                                  ID = ID,
+                                                  urban = urban,
+                                                  nasa_radiance = nasa_radiance,
+                                                  feature_population = feature_population,
+                                                  ts_data = ts_zoo,
+						  sp_obj=newsp
 				 );
  
                  attr(object,"parameter_definition")<-"Name of site of observations" 
                  attr(object,"unity_measure")<-"Measure/Observation units" 
-				 attr(object,"location")<-"Name of site of observations" 
+		 attr(object,"location")<-"Name of site of observations" 
                  attr(object,"instrument")<-"Name of engine to provide observation"
                  attr(object,"network")<-"If data is collected inside an observative network"
                  attr(object,"common_name")<-"Data tipology - Observation - Sensor monitoring - Simulation"
@@ -163,8 +163,8 @@ biodata <- function(parameter_definition = "Egg counts in trap",
                  attr(object,"nasa_radiance ")<-"NASA Night radiance value. Is a proxy for urbanity"
                  attr(object,"feature_population")<-"population density estimation"
                  attr(object,"ts_data")<-"Time series object where data area"
-	             attr(object,"sp_obj")<-"SpazialPointDataFrame"   
-				 class(object) <-"biodata"
+	         attr(object,"sp_obj")<-"SpazialPointDataFrame"   
+		 class(object) <-"biodata"
                  return(object)
 }  
 					  
