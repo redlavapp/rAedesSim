@@ -36,7 +36,7 @@
 
 
 biocontainer<- function
-              (type="Trap  REDLAV ITA",
+                        (  type="Trap  REDLAV ITA",
 			   nrecipients=50,
 			   container_shape=3,
 			   capacity=1000,
@@ -62,7 +62,7 @@ biocontainer<- function
 			   ) {
                 
 				require(mgcv);
-                require(lubridate);
+                                require(lubridate);
 				require(zoo);
 				require(xts);
 				require(sp);
@@ -97,17 +97,17 @@ biocontainer<- function
 				
 				#################################################################################################################
 				  
-                if (is.data.frame(sourcedata) || is.matrix(sourcedata))
-				      { filedata=as.data.frame(sourcedata)
-					  }
-                else 
+                                if (is.data.frame(sourcedata) || is.matrix(sourcedata))
+				      { filedata = as.data.frame(sourcedata)
+				      }
+                                       else 
 				      {
-                       filedata=read.table(sourcedata, header=TRUE,sep=field_delimiter,na.strings="NA", dec=".", strip.white=TRUE)
+                                       filedata = read.table(sourcedata, header=TRUE,sep=field_delimiter,na.strings="NA", dec=".", strip.white=TRUE)
 				      }
                    
-				if ( !length(grep("tmedwater",names(filedata)))>0 || !length( grep("dates",names(filedata))) > 0 )
-                                          { stop( "Field dates and tmedwater in datasource are needed.Check header file and change names.")
-										  }				  
+				if ( !length(grep("tmedwater",names(filedata))) > 0 || !length( grep("dates",names(filedata))) > 0 )
+                                       { stop( "Field dates and tmedwater in datasource are needed.Check header file and change names.")
+				       }				  
   
 				#################################################################################################################
 				# Instance an objects
@@ -119,7 +119,7 @@ biocontainer<- function
 				
 				 
 				if ( date_format == "DMY") {filedata$dates=dmy(filedata$dates)};
-                if ( date_format == "MDY") {filedata$dates=mdy(filedata$dates)};
+                                if ( date_format == "MDY") {filedata$dates=mdy(filedata$dates)};
                    
 				rownames(filedata)<-1:nrow(filedata)
 				
@@ -140,55 +140,54 @@ biocontainer<- function
 				    full_ts=merge.xts(full_ts,meteodata$timeseries)
 				    full_ts_df=na.omit(as.data.frame(full_ts))
 				   	rownames(full_ts_df) <- NULL;
-				###################################################################################################################
-				#
+				
 				    if (model_type == "lin") 
 				       {
 				        watermodel=try(lm(tmedwater~daylength+tmed+tmin,data=full_ts_df))
-					   };
+					};
 				
 				    if (model_type == "gam") 
 				       {
 					    if ( nrow(full_ts_df) <45)
 						    {
-							  stop( "\n\n Gam modeling require more data to avoid overfitting. \nTry with linear models (lin) in argument." )
-							}
+				                    stop( "\n\n Gam modeling require more data to avoid overfitting. \nTry with linear models (lin) in argument." )
+						     }
 					    
-                        watermodel = try(gam(tmedwater~s(daylength)+s(tmed)+s(tmin),data=full_ts_df))
-						 }	  
+                                        watermodel = try(gam(tmedwater~s(daylength)+s(tmed)+s(tmin),data=full_ts_df))
+				        }	  
 										  
 				}						  
                 #################################################################################################################
 				
 				object <- list(type=type,
-				               nrecipients=nrecipients,
-			                   container_shape=container_shape,
-							   surface_area=surface_area,
-			                   underplate=underplate,
-			                   frac_underplate=frac_underplate,
-				               frac_covering=frac_covering,
-				               initVol=initVol,
-			                   frac_initVol=frac_initVol,
-							   capacity=capacity,
-				               pooled_volume_init=initVol*frac_initVol*nrecipients,
-				               pooled_volume_current=initVol*frac_initVol*nrecipients,
-				               lat=lat_geo,
-			                   lon=lon_geo,
-							   CRS=epgs4386,
-			                   elevation=elevation,
-				               meteodata=meteodata,
-                               watermodel=watermodel,
-                               model_type=model_type,
-							   date_model=Sys.Date(),
-	                           timeseries=full_ts,
-						       sp_obj=newsp,
-							   ID=ID,
-							   site_name=site_name
-								);
+				               nrecipients = nrecipients,
+			                       container_shape = container_shape,
+					       surface_area = surface_area,
+			                       underplate = underplate,
+			                       frac_underplate = frac_underplate,
+				               frac_covering = frac_covering,
+				               initVol = initVol,
+			                       frac_initVol = frac_initVol,
+				               capacity = capacity,
+				               pooled_volume_init = initVol*frac_initVol*nrecipients,
+				               pooled_volume_current = initVol*frac_initVol*nrecipients,
+				               lat = lat_geo,
+			                       lon = lon_geo,
+				               CRS = epgs4386,
+			                       elevation = elevation,
+				               meteodata = meteodata,
+                                               watermodel = watermodel,
+                                               model_type = model_type,
+					       date_model = Sys.Date(),
+	                                       timeseries = full_ts,
+					       sp_obj = newsp,
+				               ID = ID,
+					       site_name = site_name
+			);
 				 
     attr(object,"type") <- "Describe the tipology of cointainer"
     attr(object,"nrecipients") <- "Breeding sites numerosity"
-	attr(object,"container_shape") <- "Container's shape. Parallelepiped plate (1) Cilynder plate(2) Unspecified (3)."
+    attr(object,"container_shape") <- "Container's shape. Parallelepiped plate (1) Cilynder plate(2) Unspecified (3)."
     attr(object,"surface_area") <- "Surface at water-air interface of container (cm^2) "
     attr(object,"underplate") <- " Underplate presence"
     attr(object,"frac_underplate") <- "Underplate fraction occupated by plate"
@@ -202,12 +201,12 @@ biocontainer<- function
     attr(object,"lon")<-"longitude coordinates of  biocointainer"
     attr(object,"CRS")<-"Projection used for the coordinate in proj4 string format"	
     attr(object,"elevation")<-"Mean elevation"
-	attr(object,"metameteo")<-"Rbiomsim object to fit model"
+    attr(object,"metameteo")<-"Rbiomsim object to fit model"
     attr(object,"watermodel")<-"Model fitted from raw data of water temperature measurements"
     attr(object,"watermodel_fit")<-"If water model was fitted"
     attr(object,"model_type")<-"Statistical model class used for data fitting"
-	attr(object,"date_model")<-"Model creation date" 
-	attr(object,"timeseries")<-"Timeseries object obtained from data"
+    attr(object,"date_model")<-"Model creation date" 
+    attr(object,"timeseries")<-"Timeseries object obtained from data"
     attr(object,"sp_obj")<-"SpatialPointDataFrame" 
     attr(object,"ID")<-"ID label of container set"
     attr(object,"site_name")<-"Name of sites"
