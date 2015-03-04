@@ -91,9 +91,9 @@ biocontainer<- function
 				
 				#################################################################################################################
 				
-				if ( is.null(meteodata) || is.null(sourcedata) &&  watermodel_fit ==TRUE)
+				if ( (is.null(meteodata) || is.null(sourcedata) ) &&  watermodel_fit ==TRUE)
                                           { warning( "To fit a watermodel a meteodata object and a datasource of water temperatures are needed.")
-										  }	
+					  }	
 				
 				#################################################################################################################
 				  
