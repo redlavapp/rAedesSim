@@ -28,24 +28,25 @@
 
 
 meteodata<-function(station_name="Pisa San Giusto",
-			        network="Aeronautica Militare",
-			        data_type="Simulation",
-			        standard="SYNOP",
-			        data_provider="IBIMET CNR",	
+		    network="Aeronautica Militare",
+		    data_type="Simulation",
+		    standard="SYREP",
+		    data_provider="IBIMET CNR",	
                     data_maintainer="",
- 					data_licence="",
-					date_format="YMD",
-			        lat=43.0,	
+ 		    data_licence="",
+		    date_format="YMD",
+		    lat=43.0,	
                     lon=11.0,
-			        elevation=40,
-			        timeformat="daily",
-					sourcedata=NULL,
-					field_delimiter=",",
-					timeseries=NULL,
-					CRS="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
-			    ){	
-                   require(lubridate);
-				   require(zoo);
+		    elevation=40,
+		    timeformat="daily",
+		    sourcedata=NULL,
+		    field_delimiter=",",
+		    timeseries=NULL,
+		    CRS="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
+		    )
+		    {	
+                    require(lubridate);
+		    require(zoo);
 				   require(xts);
 				   require(sp);
 				   require(rgdal);
@@ -67,11 +68,11 @@ meteodata<-function(station_name="Pisa San Giusto",
                     
 					  }
 				     
-					lon_geo=as.numeric(coordinates(newsp))[1]
+				    lon_geo=as.numeric(coordinates(newsp))[1]
 				    lat_geo=as.numeric(coordinates(newsp))[2]
 				    
 					
-					if ( is.null(sourcedata)) { stop( "To build meteodata valid object almost a data source is required as : data.frame / ascii  formatted file.\n
+				    if ( is.null(sourcedata)) { stop( "To build meteodata valid object almost a data source is required as : data.frame / ascii  formatted file.\n
                                                      Format must be daily with fields : Date of day better in YYYY-MM-DD format (dates /data), Mean temperature (tmed),\n
 													 Maximum temperature (tmax), Minimum temperature (tmin), Mean relative humidity (urel/rhum), Cumulated rainfall ( prec).\n
 													 Header is suggested to avoid variable error. Mean temperature and minimum temperature fileds are required."
@@ -80,12 +81,12 @@ meteodata<-function(station_name="Pisa San Giusto",
 				   
 				   #################################################################################################################
 				  
-                   if (is.data.frame(sourcedata) || is.matrix(sourcedata))
+                                    if (is.data.frame(sourcedata) || is.matrix(sourcedata))
 				      { filemeteo=as.data.frame(sourcedata)
-					  }
-                   else 
+				      }
+                                      else 
 				      {
-                       filemeteo=read.table(sourcedata, header=TRUE, sep=field_delimiter,na.strings="NA", dec=".", strip.white=TRUE)
+                                       filemeteo=read.table(sourcedata, header=TRUE, sep=field_delimiter,na.strings="NA", dec=".", strip.white=TRUE)
 				      }
                    
 				   #################################################################################################################
@@ -112,8 +113,8 @@ meteodata<-function(station_name="Pisa San Giusto",
 				   #################################################################################################################
 				   
 				   filemeteo$dates=ymd(filemeteo$dates,tz =Sys.timezone());
-                   if ( date_format == "DMY") {filemeteo$dates=dmy(filemeteo$dates,tz =Sys.timezone())};
-                   if ( date_format == "MDY") {filemeteo$dates=mdy(filemeteo$dates,tz =Sys.timezone())};
+                                   if ( date_format == "DMY") {filemeteo$dates=dmy(filemeteo$dates,tz =Sys.timezone())};
+                                   if ( date_format == "MDY") {filemeteo$dates=mdy(filemeteo$dates,tz =Sys.timezone())};
                    
 				   #################################################################################################################
 				   rownames(filemeteo)<-1:nrow(filemeteo)
@@ -154,7 +155,7 @@ meteodata<-function(station_name="Pisa San Giusto",
 				   if ( !exists("ts_zoo"))
 				   {
 				    warning( "Timeseries creation invalid! Check data and dates in data sources")
-			       }
+			           }
 				  
    				  #################################################################################################################
 				  						 
@@ -163,35 +164,35 @@ meteodata<-function(station_name="Pisa San Giusto",
 			                      data_type=data_type, 
 			                      standard=standard,
 			                      data_provider=data_provider,
-                               	  data_maintainer=data_maintainer,
-								  data_licence=data_licence,
+                               	              data_maintainer=data_maintainer,
+					      data_licence=data_licence,
 			                      lat=lat_geo,	
-                                  lon=lon_geo,
-								  CRS=epgs4386,
+                                              lon=lon_geo,
+					      CRS=epgs4386,
 			                      elevation=elevation,
 			                      timeformat=timeformat,
-						          tmed=filemeteo$tmed,
-						          tmax=filemeteo$tmax,
-						          tmin=filemeteo$tmin,
-						          urel=filemeteo$rhum,
-						          prec=filemeteo$prec,
-						          dates=filemeteo$dates,
-						          length_data_ini=length_data_ini,
-						          ndays=length(filemeteo$dates),
-						          daylenght=filemeteo$daylength,
-						          continuity=continuity,
-						          perc_missing_data=perc_missing,
-						          timeseries=ts_zoo,
-						          sp_obj=newsp
+					      tmed=filemeteo$tmed,
+					      tmax=filemeteo$tmax,
+					      tmin=filemeteo$tmin,
+					      urel=filemeteo$rhum,
+					      prec=filemeteo$prec,
+					      dates=filemeteo$dates,
+					      length_data_ini=length_data_ini,
+					      ndays=length(filemeteo$dates),
+					      daylenght=filemeteo$daylength,
+					      continuity=continuity,
+					      perc_missing_data=perc_missing,
+					      timeseries=ts_zoo,
+					     sp_obj=newsp
 				 );
  
-                 attr(object,"station_name") <- "Denominazione Stazione"
+                 attr(object,"station_name") <- "Name of station"
                  attr(object,"network") <- "Network of station"
                  attr(object,"data_type")<-"Station Type"
-                 attr(object,"standard")<-"data class or reference standard"
+                 attr(object,"standard")<-"Data class or relative reference standard"
                  attr(object,"data_provider")<-"Istitution or Private data manager"
                  attr(object,"data_maintainer")<-"Name or contact of data maintainer"
-				 attr(object,"data_licence")<-"Licence of data"
+		 attr(object,"data_licence")<-"Licence of data"
                  attr(object,"lat")<-"Latitude in decimal degrees. Datum WGS 84"
                  attr(object,"lon")<-"Longitude in decimal degrees . Datum WGS 84"	
                  attr(object,"CRS")<-"Projection used for the coordinate in proj4 string format"	
@@ -202,11 +203,11 @@ meteodata<-function(station_name="Pisa San Giusto",
                  attr(object,"tmin")<-"Minimum daily temperature"
                  attr(object,"urel")<-"Relative humidity daily average"
                  attr(object,"prec")<-"Rainfall cumulated in a day"
-                 attr(object,"dates")<-"Dates of data matrix"
+                 attr(object,"dates")<-"Dates of meteorological data matrix"
                  attr(object,"length_data_ini")<-"Initial data length of raw data"
                  attr(object,"ndays")<-"Number of days"
                  attr(object,"daylenght")<-"Day length for each date"
-                 attr(object,"continuity")<-"If the carar of continuity of raw data is detected"
+                 attr(object,"continuity")<-"If the temporal continuity of raw data is detected"
                  attr(object,"perc_missing_data")<-"Percentage of missing values"
                  attr(object,"timeseries")<-"Data timeseries as R xts object"
                  attr(object,"sp_obj")<-"SpatialPointDataFrame"  
