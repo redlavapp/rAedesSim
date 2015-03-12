@@ -47,6 +47,10 @@ i_biocontainer_trap=biocontainer(nrecipients=50,
                                  lon=10.88788889,
                                  elevation=5)
 
+#################################################################################################
+# Retrieve biodaa object from location.
+
+data(Castiglione_della_Pescaia_P4_monitoring)
 
 #################################################################################################
 # Create a biometeo objects
@@ -62,8 +66,8 @@ C_Pescaia_P4_bio_trap=biometeo(Castiglione_della_Pescaia_P4_meteo,i_biocontainer
 
 simulation=biomodel(biopopulation(eggs=100,larvae=0,pupae=0,adults=0,eggs_diap=10),
                     bioparameters(alfa_l=1,alfa_a=0,l_density=40),
-	            C_Pescaia_P4_bio_tombino,
-		    i_biocontainer_tomb)
+                    C_Pescaia_P4_bio_tombino,
+                    i_biocontainer_tomb)
 					  
 
 
