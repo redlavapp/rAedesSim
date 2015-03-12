@@ -16,7 +16,7 @@
 #' @param inibition logical: taking into account density larvae inibition.Default is FALSE.
 #' @param ID_sim char string: ID of simulation.Default is FALSE.
 #' @param saveparameter logical: save results about paraemters. Default is FALSE. 
-#' @return Rbiosim object Biomodel object
+#' @return rAedesSim object Biomodel object
 #' @author  Istituto di Biometeorologia Firenze Italy  Alfonso crisci \email{a.crisci@@ibimet.cnr.it} ASL 2 LUCCA Marco Selmi \email{m.selmi@@usl2.toscana.it} 
 #' @keywords  modeling
 #'
