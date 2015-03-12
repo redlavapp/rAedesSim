@@ -1,6 +1,7 @@
 useDynLib(rAedesSim)
 import(deSolve)
 import(rgdal)
+import(verification)
 import(xts)
 import(lubridate)
 import(sp)
