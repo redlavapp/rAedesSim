@@ -7,6 +7,7 @@
 
 library.dynam(pkgname, package=pkgname, lib.loc=.libPaths())
 if (!require('devtools')) {install.packages('devtools')}
+if (!require('verification')) {install.packages('verification')}
 if (!require('leaflet')) {devtools::install_github('rstudio/leaflet')} 	
 options(digits=10)
 }
