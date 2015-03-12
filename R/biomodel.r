@@ -15,6 +15,7 @@
 #' @param n_sampling=10 numeric : number of resampling.
 #' @param inibition logical: taking into account density larvae inibition.Default is FALSE.
 #' @param ID_sim char string: ID of simulation.Default is FALSE.
+#' @param saveparameter logical: save results about paraemters. Default is FALSE. 
 #' @return Rbiosim object Biomodel object
 #' @author  Istituto di Biometeorologia Firenze Italy  Alfonso crisci \email{a.crisci@@ibimet.cnr.it} ASL 2 LUCCA Marco Selmi \email{m.selmi@@usl2.toscana.it} 
 #' @keywords  modeling
@@ -191,7 +192,9 @@ biomodel  <- function(i_biopopulation,
 				
 				################################################################# 
 				# update outcomes
-				
+				if (saveparameter == TRUE) 
+				{
+                               
 				df_outcome_par[i_day,2]=as.numeric(f_ovo_a);
 				df_outcome_par[i_day,3]=as.numeric(f_trans_u2l);
 				df_outcome_par[i_day,4]=as.numeric(f_trans_l2p);
@@ -203,6 +206,7 @@ biomodel  <- function(i_biopopulation,
                                 df_outcome_par[i_day,9]=as.numeric(ml);
                                 df_outcome_par[i_day,10]=as.numeric(i_biometeo$diapause_emergency[i_day]);
                                 df_outcome_par[i_day,11]=as.numeric(inib_state);
+                                }
 			    
 	                         };	
 				#########################################################################################################################################
