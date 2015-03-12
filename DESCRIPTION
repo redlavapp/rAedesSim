@@ -9,6 +9,6 @@ Author: Alfonso Crisci <a.crisci@ibimet.cnr.it> Marco Selmi
         <messeri@toscana.lamma.rete.it> Piero Manfredi
         <piero.manfredi@unipi.it>
 Maintainer: Alfonso Crisci <a.crisci@ibimet.cnr.it>
-Depends: deSolve,rgdal,xts,lubridate,sp
-Imports: deSolve,rgdal,xts,lubridate,sp
+Depends: deSolve,rgdal,xts,lubridate,sp,verification
+Imports: deSolve,rgdal,xts,lubridate,sp,verification
 Packaged: 2015-03-04 13:18:23 UTC; Alf
