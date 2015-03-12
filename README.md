@@ -17,11 +17,10 @@ library(rAedesSim)
 
 #################################################################################################
 # Load my meteorological data obtained by Weather Local Model simulation for 2012 year
-# Mosquito eggs monitoring 
+
 
 data(Castiglione_della_Pescaia_P4_meteo)
 
-data(Castiglione_della_Pescaia_P4_monitoring)
 
 #################################################################################################
 # Load different weather-water models respectively for a different trap mosquito traps or manhole.
@@ -48,7 +47,7 @@ i_biocontainer_trap=biocontainer(nrecipients=50,
                                  elevation=5)
 
 #################################################################################################
-# Retrieve biodaa object from location.
+# Retrieve biodaa object from location.  Mosquito eggs monitoring 
 
 data(Castiglione_della_Pescaia_P4_monitoring)
 
