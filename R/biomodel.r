@@ -33,7 +33,8 @@ biomodel  <- function(i_biopopulation,
 		      stocastic=TRUE,
 		      n_sampling=10,
 		      inibition=FALSE,
-		      ID_sim=""
+		      ID_sim="",
+		      saveparameter=FALSE
 		      )
 	             { 
 			   
