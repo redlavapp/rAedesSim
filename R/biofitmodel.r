@@ -24,7 +24,6 @@
 
 biofitmodel  <- function(i_biometeo,
                          i_biopopulation,
-			 i_bioparameters,
                          i_biocointaner,
 			 i_monitoring,
 		         range_alpha_a=c(0,seq(0,0.002,0.001)),
