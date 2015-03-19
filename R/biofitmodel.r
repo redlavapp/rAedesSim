@@ -114,7 +114,7 @@ biofitmodel  <- function(i_biometeo,
 				best_no_diap=which.min(simul_RMSE_nodiap);
 				names(replies)<-c("alpha_a","alpha_l","density_max_l");
 				replies_best=replies[best,]
-				replies_best_nodiap=replies[best_nodiap,]
+				replies_best_nodiap=replies[best_no_diap,]
 				
 				#########################################################################################################################################
 			       # Fill spatial objects
@@ -122,9 +122,9 @@ biofitmodel  <- function(i_biometeo,
 				i_biocontainer$sp_obj$alpha_a=replies_best[1]
 				i_biocontainer$sp_obj$alpha_l=replies_best[2]
 				i_biocontainer$sp_obj$density_max_l=replies_best[3]
-				i_biocontainer$sp_obj$alpha_a_nodiap=replies_best_nodiap[1]
-				i_biocontainer$sp_obj$alpha_l_nodiap=replies_best_nodiap[2]
-				i_biocontainer$sp_obj$density_max_l_nodiap=replies_best_nodiap[3]
+				i_biocontainer$sp_obj$alpha_a_no_diap=replies_best_no_diap[1]
+				i_biocontainer$sp_obj$alpha_l_no_diap=replies_best_no_diap[2]
+				i_biocontainer$sp_obj$density_max_l_no_diap=replies_best_no_diap[3]
 				
 				
 				if ( plotresults == TRUE) {plot(simul_ts[[best]],
@@ -142,13 +142,13 @@ biofitmodel  <- function(i_biometeo,
                 object  <-  list(name_model="rAedesSim",
 				                 	guess_parameter=replies,
                                                         best_simul = simul_ts[[best]],
-							best_biopar_nodiap = simul_ts[[best_nodiap]],
+							best_biopar_no_diap = simul_ts[[best_no_diap]],
 							best_simul_RMSE = simul_RMSE[[best]],
-							best_nodiap_RMSE = simul_RMSE_nodiap[[best_nodiap]],
+							best_nodiap_RMSE = simul_RMSE_no_diap[[best_no_diap]],
 							par_fitted_best=replies_best,
-							par_fitted_best_nodiap=replies_best_nodiap,
+							par_fitted_best_no_diap=replies_best_no_diap,
 							simul_RMSE=simul_RMSE,
-							simul_RMSE_nodiap=simul_RMSE_nodiap,
+							simul_RMSE_no_diap=simul_RMSE_no_diap,
 							n_replies=length(na.omit(simul_RMSE)),
 					                stocastic=stocastic,
 					                n_sampling=n_sampling,
@@ -168,13 +168,13 @@ biofitmodel  <- function(i_biometeo,
                 attr(object,"name_model") <- "Model's name"
                 attr(object,"guess_parameter") <- "Matrix of guess values."
                 attr(object,"best_simul") <- "Timeseries object: Best simulation taking into account diapause."
-		attr(object,"best_biopar_nodiap") <-  "Timeseries object: Best simulation NOT taking  into account diapause."
+		attr(object,"best_biopar_no_diap") <-  "Timeseries object: Best simulation NOT taking  into account diapause."
 		attr(object,"best_simul_RMSE") <- "Root mean square error of simulation"
 		attr(object,"best_nodiap_RMSE") <- "Root mean square error of simulation NOT taking  into account diapause."
 		attr(object,"par_fitted_best") <- "Parameter fitted."
-		attr(object,"par_fitted_best_nodiap") <- "Parameter fitted NOT taking  into account diapause."
+		attr(object,"par_fitted_best_no_diap") <- "Parameter fitted NOT taking  into account diapause."
 		attr(object,"simul_RMSE") <- "Root mean square error for all simulation."
-		attr(object,"simul_RMSE_nodiap") <- "Root mean square error for all simulation NOT taking  into account diapause."
+		attr(object,"simul_RMSE_no_diap") <- "Root mean square error for all simulation NOT taking  into account diapause."
 		attr(object,"n_replies") <- "Number of simulation."
 		attr(object,"stocastic") <- "If stocasticity in simulation are considered."
 		attr(object,"n_sampling") <- "Number of resamplig."
