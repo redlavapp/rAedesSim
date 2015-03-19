@@ -71,11 +71,11 @@ biofitmodel  <- function(i_biometeo,
 			     simul_RMSE=numeric(nrow(replies));
 			     simul_RMSE_nodiap=numeric(nrow(replies));
 			     success_vector=logical(nrow(replies));
-				
+			     simulation=list();	
                 ########################################################################################################
 				
                 for ( i in seq_along(biopar_list)) { message(paste("Working on:", i));
-				                                     tryCatch({simulation=biomodel(n_biopopulation,
+				                                     tryCatch({simulation[[i]]=biomodel(n_biopopulation,
                                                                                                    biopar_list[[i]],
                                                                                                    n_biometeo,
                                                                                                    n_biocontainer,								   stocastic=stocastic,
@@ -86,12 +86,12 @@ biofitmodel  <- function(i_biometeo,
                                                                                                   success_vector[i] = FALSE
                                                                                                   simul_ts[[i]] = NA
 												  message(paste("Processed case:", i,"Simulation aborted!"))
-												  simulation=NULL
+												  simulation[[i]]=NULL
                                                                                    },
                                                                        finally={
                                                                                                   success_vector[i] = TRUE
-												  Eggs=simulation$ts_population$eggs+simulation$ts_population$diapausant_eggs
-												  Eggs_nodiap=simulation$ts_population$eggs
+												  Eggs=simulation[[i]]$ts_population$eggs+simulation[[i]]$ts_population$diapausant_eggs
+												  Eggs_nodiap=simulation[[i]]$ts_population$eggs
 												  Eggs_obs=i_monitoring$ts_data
 												  merged=merge.xts(Eggs,Eggs_obs,join = "inner");
 												  merged_nodiap=merge.xts(Eggs_nodiap,Eggs_obs,join = "inner");
