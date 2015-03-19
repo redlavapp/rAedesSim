@@ -86,6 +86,7 @@ biofitmodel  <- function(i_biometeo,
                                                                                                   success_vector[i] = FALSE
                                                                                                   simul_ts[[i]] = NA
 												  message(paste("Processed case:", i,"Simulation aborted!"))
+												  simulation=NULL
                                                                                    },
                                                                        finally={
                                                                                                   success_vector[i] = TRUE
@@ -97,7 +98,8 @@ biofitmodel  <- function(i_biometeo,
 												  simul_ts[[i]]=merged; 
                                                                                                   simul_RMSE[i]=sqrt(verify(as.vector( merged$eggs), as.vector(merged$Eggs_obs), frcst.type = "cont", obs.type = "cont")$MSE)
                                                                                                   simul_RMSE_nodiap[i]=sqrt(verify(as.vector( merged_nodiap$eggs), as.vector(merged_nodiap$Eggs_obs), frcst.type = "cont", obs.type = "cont")$MSE)
-                                                                             	                   message(paste("Processed case:", i,"Simulation ok!"))
+                                                                             	                  message(paste("Processed case:", i,"Simulation ok!"))
+                                                                             	                  simulation=NULL
                                                                                    })
 						}													  
 									
