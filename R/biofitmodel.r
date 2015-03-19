@@ -85,7 +85,6 @@ biofitmodel  <- function(i_biometeo,
                                                                        error=function(cond) {
                                                                                                   success_vector[i] = FALSE
                                                                                                   simul_ts[[i]] = NA
-												  simul_verify[[i]] = NA
 												  message(paste("Processed case:", i,"Simulation aborted!"))
                                                                                    },
                                                                        finally={
