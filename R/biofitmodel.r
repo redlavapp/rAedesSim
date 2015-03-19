@@ -58,7 +58,7 @@ biofitmodel  <- function(i_biometeo,
 	                    # Create matrix and list for testing parameters
 				
 			    
-                            replies=cbind(merge(range_alpha_a,range_alpha_l),z=rep(range_density_l,nrow(a)))
+                            replies=cbind(merge(range_alpha_a,range_alpha_l),z=rep(range_density_l,nrow(merge(range_alpha_a,range_alpha_l))))
 			    replies=replies[,1:3]
 		            biopar_list=list()
 				
