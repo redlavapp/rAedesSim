@@ -114,7 +114,7 @@ biofitmodel  <- function(i_biometeo,
 				best_no_diap=which.min(simul_RMSE_nodiap);
 				names(replies)<-c("alpha_a","alpha_l","density_max_l");
 				replies_best=replies[best,]
-				replies_best_nodiap=replies[best_no_diap,]
+				replies_best_no_diap=replies[best_no_diap,]
 				
 				#########################################################################################################################################
 			       # Fill spatial objects
