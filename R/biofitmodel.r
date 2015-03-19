@@ -49,7 +49,7 @@ biofitmodel  <- function(i_biometeo,
 			 
 			     if (class(i_biometeo) != "biometeo") { stop(" Object argument must be a  rAedesSim biometeo class." )};
 		             if (class(i_biopopulation) != "biopopulation") { stop(" Object argument must be a rAedesSim bioparameters class." )};
-                             if (class(i_biocontainer) != "biocointaner") { stop(" Object argument must be a rAedesSim biocointaner class." )};
+                             if (class(i_biocontainer) != "biocontainer") { stop(" Object argument must be a rAedesSim biocontainer class." )};
   			     if (class(i_monitoring) != "biodata") { stop(" Object argument must be a rAedesSim biodata class." )};
   			   
 			      
