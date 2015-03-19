@@ -26,7 +26,7 @@
 #' @param field_delimiter char string: field delimiter of file. Default is comma ",". 
 #' @param timeseries xts R object: Timeseries of data 
 #' @param ID  char string: ID of container's set. 
-#' @return Rbiosim object: Biocontainer object.
+#' @return rAedesSim object: Biocontainer object.
 #' @author  Istituto di Biometeorologia Firenze Italy  Alfonso crisci \email{a.crisci@@ibimet.cnr.it} ASL 2 LUCCA Marco Selmi \email{m.selmi@@usl2.toscana.it} 
 #' @keywords  container
 #'
