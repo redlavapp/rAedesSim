@@ -75,10 +75,10 @@ biofitmodel  <- function(i_biometeo,
                 ########################################################################################################
 				
                 for ( i in seq_along(biopar_list)) { message(paste("Working on:", i));
-				                                     tryCatch({simulation[[i]]=biomodel(n_biopopulation,
+				                                     tryCatch({simulation[[i]]=biomodel(i_biopopulation,
                                                                                                    biopar_list[[i]],
-                                                                                                   n_biometeo,
-                                                                                                   n_biocontainer,								   stocastic=stocastic,
+                                                                                                   i_biometeo,
+                                                                                                   i_biocontainer,								   stocastic=stocastic,
 		                                                                                   n_sampling=n_sampling,
 		                                                                                   inibition=inibition)
 																		           },
