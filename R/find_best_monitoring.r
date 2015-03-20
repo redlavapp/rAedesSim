@@ -22,28 +22,29 @@
 #' @export
 
 
-find_best_monitoring=function(i_meteo,
-                              i_biocontainer,
-                              i_monitoring,
-							  initial_eggs=100,
-                              range_alpha_a=c(0,seq(0,0.002,0.001)),
-							  range_alpha_l=seq(0.6,1.6,0.2),
-							  range_density_l=70,
-							  stocastic=TRUE,
-			                  n_sampling=10,
-			                  inibition=FALSE) {
+find_best_monitoring=function ( i_meteo,
+                                i_biocontainer,
+                                i_monitoring,
+				initial_eggs=100,
+                                range_alpha_a=c(0,seq(0,0.002,0.001)),
+				range_alpha_l=seq(0.6,1.6,0.2),
+				range_density_l=70,
+				stocastic=TRUE,
+			        n_sampling=10,
+			        inibition=FALSE) {
 							 
-                                               i_biometeo=biometeo(i_meteo,i_biocontainer)
-                                               i_biopopulation=biopopulation(eggs=initial_eggs,larvae=0,pupae=0,adults=0,eggs_diap=initial_eggs)
+                                                i_biometeo=biometeo(i_meteo,i_biocontainer)
+                                                i_biopopulation=biopopulation(eggs=initial_eggs,larvae=0,pupae=0,adults=0,eggs_diap=initial_eggs)
 
-                                               return(biofitmodel(i_biometeo=i_biometeo,
-											              i_biopopulation=i_biopopulation,
-											              i_monitoring=monitoring,
-											              range_alpha_a=range_alpha_a,
-											              range_alpha_l=range_alpha_l,
-											              range_density_l=range_density_l,
-											              stocastic=stocastic,
-											              n_sampling=n_sampling,
-											              inibition=inibition
-			                                    ))				
-                           }
+                                                return( biofitmodel(    i_biometeo=i_biometeo,
+							 	        i_biopopulation=i_biopopulation,
+									i_monitoring=monitoring,
+									range_alpha_a=range_alpha_a,
+									range_alpha_l=range_alpha_l,
+									range_density_l=range_density_l,
+									stocastic=stocastic,
+									n_sampling=n_sampling,
+									inibition=inibition
+			                                           ))				
+                                               }
+                                               
