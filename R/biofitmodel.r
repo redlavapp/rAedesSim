@@ -3,18 +3,18 @@
 #' @description 
 #' \code{biofitmodel} A class to perform the model tuning to find the more effective parameters which lead minimal RMSE error having field data.
 #' 
-#' @param i_biometeo object: rAedesSim object concerning a implemented biomodel.  
-#' @param i_biopopulation object: rAedesSim object concerning starting population object.  
-#' @param i_biocointaner object: rAedesSim object concerning biocointaner object used in simulation.  
-#' @param i_monitoring object: rAedesSim biodata object concerning mosquito eggs field observations.
+#' @param i_biometeo object: rAedesSim object as  \code{biometeo}.  
+#' @param i_biopopulation object: rAedesSim object as  \code{biopopulation}.  
+#' @param i_biocontainer object: rAedesSim object \code{biocontainer}.  
+#' @param i_monitoring object: rAedesSim \code{biodata} object concerning mosquito eggs field observations.
 #' @param range_alpha_a numeric: rAedesSim vector of sorted  guess' values of female adult competition. Default is obtained by c(0,seq(0,0.002,0.001)).
 #' @param range_alpha_l numeric: rAedesSim vector of sorted guess' values of larval competition.  Default is obtained by seq(0.8,1.6,0.2).
 #' @param range_density_l numeric: rAedesSim object guess' values of maximaum larval competion in function of waer volume in cointaner. Default is obtained by seq(40,70,10).
-#' @param stocastic logical: if stocastic simulation are carried out in simulation.Defalut is True.
-#' @param n_sampling numeric: number  of resampling if stochastic is implemented.Defalut is 10.
-#' @param inibition logical: if larval density is considered.Defalut is FALSE.
-#' @param plotresults logical: if is true a plot is done. 
-#' @return rAedesSim object biofitmodel object.
+#' @param stocastic logical: if stocastic simulation are carried out in \code{biomodel} .Defalut is True.
+#' @param n_sampling numeric: number  of resampling if stochastic is implemented see in \code{biomodel}. Defalut is 10.
+#' @param inibition logical: if larval density is considered in \code{biomodel}. Defalut is FALSE.
+#' @param plotresults logical: if is true a plot is done. Defalut is FALSE.
+#' @return rAedesSim object \code{biofitmodel} object.
 #' @author  Istituto di Biometeorologia Firenze Italy  Alfonso crisci \email{a.crisci@@ibimet.cnr.it} ASL 2 LUCCA Marco Selmi \email{m.selmi@@usl2.toscana.it} 
 #' @keywords  fit a rAedesModel modeling
 #'
