@@ -3,10 +3,10 @@
 #' @description 
 #' \code{biomodel} S3 class for biomodel object to be used in rAedesSim package. This is the object that lead simulation.
 #' 
-#' @param i_biopopulation object: rAedesSim object concerning mosquito population.  
-#' @param i_bioparameters object: rAedesSim object concerning biological parameter of mosquito population.
 #' @param i_biometeo object: rAedesSim object concerning biometeorological parameter of location where mosquito population are simulated.  
 #' @param i_biocontainer object: rAedesSim object concerning trap or habitat considered.  
+#' @param i_biopopulation object: rAedesSim object concerning mosquito population.  
+#' @param i_bioparameters object: rAedesSim object concerning biological parameter of mosquito population.
 #' @param state numeric: State vector  for simulation.The state considered are L1 : Ovideposition rate, L3 : Eggs Mortality rate, 
 #' L4: Eggs2larvae transition rate, L5 : Pupae2Larvae transition rate, L6 larvae Mortality,L7  pupae Mortality
 #' L8 Pupae2adult transition rate, L10 Female adult mortality Default : L1=0,L3=0,L4=0,L5=0,L6=0,L7=0,L8=0,L10=0
@@ -24,17 +24,17 @@
 #' 
 #' @export
 
-biomodel  <- function(i_biopopulation,
+biomodel  <- function(i_biometeo,
+                      i_biocontainer,
+                      i_biopopulation,
                       i_bioparameters,
-		      i_biometeo,
-		      i_biocontainer,
                       state=c(L1=0,L3=0,L4=0,L5=0,L6=0,L7=0,L8=0,L10=0),
                       time_interval=24,
-		      stocastic=TRUE,
-		      n_sampling=10,
-		      inibition=FALSE,
-		      ID_sim="",
-		      saveparameter=FALSE
+                      stocastic=TRUE,
+                      n_sampling=10,
+                      inibition=FALSE,
+                      ID_sim="",
+                      saveparameter=FALSE
 		      )
 	             { 
 			   
@@ -240,10 +240,10 @@ biomodel  <- function(i_biopopulation,
                 attr(object,"timestep_integration") <- "Time step of daily integration"
                 attr(object,"ts_population") <- "Model outcomes of mosquito as multivariate timeseries xts object"
                 attr(object,"ts_parameter") <- "Model outcomes of simulation parameters  xts object"
-		attr(object,"ID")<-"ID label of container set"
+                attr(object,"ID")<-"ID label of container set"
                 attr(object,"site_name")<-"Name of sites"
-		attr(object,"sp_obj")<-"SpatialPointDataFrame of location"
-		attr(object,"lat")<-"latitude coordinates of simulations"
+                attr(object,"sp_obj")<-"SpatialPointDataFrame of location"
+                attr(object,"lat")<-"latitude coordinates of simulations"
                 attr(object,"lon")<-"longitude coordinates of simulations"
    
                 class(object) <- "biomodel"
