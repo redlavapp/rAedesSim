@@ -3,18 +3,18 @@
 #' @description 
 #' \code{biofitmodel} A class to perform the model tuning to find the more effective parameters which lead minimal RMSE error having field data.
 #' 
-#' @param i_biometeo object: rAedesSim object concerning a implemented biomodel.  
-#' @param i_biopopulation object: rAedesSim object concerning starting population object.  
-#' @param i_biocointaner object: rAedesSim object concerning biocointaner object used in simulation.  
-#' @param i_monitoring object: rAedesSim biodata object concerning mosquito eggs field observations.
+#' @param i_biometeo object: rAedesSim object as  \code{biometeo}.  
+#' @param i_biopopulation object: rAedesSim object as  \code{biopopulation}.  
+#' @param i_biocontainer object: rAedesSim object \code{biocontainer}.  
+#' @param i_monitoring object: rAedesSim \code{biodata} object concerning mosquito eggs field observations.
 #' @param range_alpha_a numeric: rAedesSim vector of sorted  guess' values of female adult competition. Default is obtained by c(0,seq(0,0.002,0.001)).
 #' @param range_alpha_l numeric: rAedesSim vector of sorted guess' values of larval competition.  Default is obtained by seq(0.8,1.6,0.2).
 #' @param range_density_l numeric: rAedesSim object guess' values of maximaum larval competion in function of waer volume in cointaner. Default is obtained by seq(40,70,10).
-#' @param stocastic logical: if stocastic simulation are carried out in simulation.Defalut is True.
-#' @param n_sampling numeric: number  of resampling if stochastic is implemented.Defalut is 10.
-#' @param inibition logical: if larval density is considered.Defalut is FALSE.
-#' @param plotresults logical: if is true a plot is done. 
-#' @return rAedesSim object biofitmodel object.
+#' @param stocastic logical: if stocastic simulation are carried out in \code{biomodel} .Defalut is True.
+#' @param n_sampling numeric: number  of resampling if stochastic is implemented see in \code{biomodel}. Defalut is 10.
+#' @param inibition logical: if larval density is considered in \code{biomodel}. Defalut is FALSE.
+#' @param plotresults logical: if is true a plot is done. Defalut is FALSE.
+#' @return rAedesSim object \code{biofitmodel} object.
 #' @author  Istituto di Biometeorologia Firenze Italy  Alfonso crisci \email{a.crisci@@ibimet.cnr.it} ASL 2 LUCCA Marco Selmi \email{m.selmi@@usl2.toscana.it} 
 #' @keywords  fit a rAedesModel modeling
 #'
@@ -73,45 +73,38 @@ biofitmodel  <- function(i_biometeo,
 			     success_vector=logical(nrow(replies));
 			     ########################################################################################################
 				
-                for ( i in seq_along(biopar_list)) { message(paste("Working on:", i));
+                             for ( i in seq_along(biopar_list)){ message(paste("Working on:", i));
  
-				                                     simulation=tryCatch({biomodel(i_biometeo="",
-                                                                                        i_biocontainer=i_biocontainer,
-																						i_biopopulation=i_biopopulation,
-                                                                                        i_bioparameters=biopar_list[[i]],
-                                                                                        stocastic = stocastic,
-                                                                                        n_sampling = n_sampling,
-                                                                                        inibition = inibition)
-																		           },
-                                                                 error=function(cond) {
-                                                                                        success_vector[i] = FALSE
-                                                                                        simul_ts[[i]] = NA
-																						simul_ts[[i]]=NA; 
-                                                                                        simul_RMSE[i]=NA
-                                                                                        simul_RMSE_no_diap[i]=NA
-																						return(NA);
-                                                                                        message(paste("Processed case:", i,"Simulation aborted!"))
+				                                simulation = tryCatch({biomodel(i_biometeo=i_biometeo,
+                                                                                                i_biocontainer=i_biocontainer,
+										                i_bioparameters=biopar_list[[i]],
+                                                                                                stocastic = stocastic,
+                                                                                                n_sampling = n_sampling,
+                                                                                                inibition = inibition)
+												},
+                                                                                error=function(cond) {
+                                                                                                success_vector[i] = FALSE
+                                                                                                simul_ts[[i]] = NA
+										                simul_RMSE[i]=NA
+                                                                                                simul_RMSE_no_diap[i]=NA
+										                message(paste("Processed case:", i,"Simulation aborted!"))
                                                                                              },
-                                                                  finally=            {
-                                                                                        success_vector[i] = TRUE
-                                                                                        
-
-                                                                                     })
-						                             if (success_vector[i] = TRUE) {
+                                                                                finally=      {
+                                                                                                 success_vector[i] = TRUE
+                                                                                             }
+                                                                                       )
+						                if (success_vector[i] = TRUE) {
 													                                    Eggs=simulation$ts_population$eggs+simulation$ts_population$diapausant_eggs
-                                                                                        Eggs_no_diap=simulation$ts_population$eggs
-                                                                                        Eggs_obs=i_monitoring$ts_data
-                                                                                        merged=merge.xts(Eggs,Eggs_obs,join = "inner");
-                                                                                        merged_no_diap=merge.xts(Eggs_no_diap,Eggs_obs,join = "inner");
-                                                                                        simul_ts[[i]]=merged; 
-                                                                                        simul_RMSE[i]=sqrt(verify(as.vector( merged$eggs), as.vector(merged$Eggs_obs), frcst.type = "cont", obs.type = "cont")$MSE)
-                                                                                        simul_RMSE_no_diap[i]=sqrt(verify(as.vector( merged_no_diap$eggs), as.vector(merged_no_diap$Eggs_obs), frcst.type = "cont", obs.type = "cont")$MSE)
-                                                                                        message(paste("Processed case:", i,"Simulation ok!"))
-																					}	
-													 
-													 
-													 }													  
-									
+                                                                                                Eggs_no_diap=simulation$ts_population$eggs
+                                                                                                Eggs_obs=i_monitoring$ts_data
+                                                                                                merged=merge.xts(Eggs,Eggs_obs,join = "inner");
+                                                                                                merged_no_diap=merge.xts(Eggs_no_diap,Eggs_obs,join = "inner");
+                                                                                                simul_ts[[i]]=merged; 
+                                                                                                simul_RMSE[i]=sqrt(verify(as.vector( merged$eggs), as.vector(merged$Eggs_obs), frcst.type = "cont", obs.type = "cont")$MSE)
+                                                                                                simul_RMSE_no_diap[i]=sqrt(verify(as.vector( merged_no_diap$eggs), as.vector(merged_no_diap$Eggs_obs), frcst.type = "cont", obs.type = "cont")$MSE)
+                                                                                                message(paste("Processed case:", i,"Simulation ok!"))
+                                                                                                }													  
+								}	
 		   
 				  
                 
@@ -136,14 +129,13 @@ biofitmodel  <- function(i_biometeo,
 				
 				plot_ts=NULL
 				if ( plotresults == TRUE)   { plot_ts=plot(simul_ts[[best]],
-                                              main = paste("Observed (red) & Assessed (Black) - ",as.character(i_biocontainer$type),"-","Stage's competivity index: Larvae=",replies_best[1],"   Adults=",replies_best[1],"   Larval MaxDensity=",replies_best[3]),
-				                              cex.axis = 1.2,
-				                              cex.main = 2.5,
-				                              legend.loc = "bottomright", 
-				                              legend.pars = list(bty = "n",cex=2,horiz=TRUE),
-				                              legend.names = c("Observed","Assessed")) 
-
-				                            }
+                                                                           main = paste("Observed (red) & Assessed (Black) - ",as.character(i_biocontainer$type),"-","Stage's competivity index: Larvae=",replies_best[1],"   Adults=",replies_best[1],"   Larval MaxDensity=",replies_best[3]),
+				                                           cex.axis = 1.2,
+				                                           cex.main = 2.5,
+				                                           legend.loc = "bottomright", 
+				                                           legend.pars = list(bty = "n",cex=2,horiz=TRUE),
+				                                           legend.names = c("Observed","Assessed")) 
+                                                              }
 				#########################################################################################################################################
 			   
                 object  <-  list(name_model="rAedesSim",
@@ -193,6 +185,6 @@ biofitmodel  <- function(i_biometeo,
                 attr(object,"lat")<-"latitude coordinates of simulations."
                 attr(object,"lon")<-"longitude coordinates of simulations."
                 attr(object,"plot_ts")<-"Plot fitted vs observed."
-				class(object) <- "biofitmodel"
+		class(object) <- "biofitmodel"
                 return(object)
 }
