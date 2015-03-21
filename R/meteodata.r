@@ -1,24 +1,24 @@
 #' meteodata
 #'
 #' @description 
-#' \code{meteodata} Create meteodata object for rAedesSim.
+#' \code{meteodata} Create meteodata object for rAedesSim to store weather information.
 #'
 #' @param station_name char string: Name of station 
-#' @param network  char string: Observative or set of data
-#' @param data_type char string: Data tipology - Observation - Sensor monitoring - Simulation
-#' @param standard char string: Data standard class es SYNOP 
+#' @param network  char string: Network of observative data.
+#' @param data_type char string: Weather Data class: Forecast  Observation - Sensor Monitoring - Local Simulation
+#' @param standard char string: WeatData standard class Default SYREP. 
 #' @param data_provider char string: Institution / Private data manager.
 #' @param data_maintaner char string: maintainer's  name or contact or its contact . 
 #' @param data_licence char string: Licence of data.    
-#' @param lat numeric: latitude coordinates of  where data are collected.
-#' @param lon numeric: longitude coordinates of  where data are collected.
-#' @param CRS char string: Projection of coordinate in proj4 format.
-#' @param elevation  numeric: Elevation of the Default is 40.
-#' @param timeformat  numeric: Native period of aggregation. Default is "daily".
-#' @param sourcedata Matrix or data.frame or ascii file of raw data.
+#' @param lat numeric: latitude coordinate corresponding to data collected.
+#' @param lon numeric: longitude coordinate corresponding to data collected.
+#' @param CRS char string: Projection of coordinates in proj4 format.
+#' @param elevation  numeric: Elevation corresponding to data collected. Default is 40.
+#' @param timeformat  numeric: Time period of data aggregation. Default is "Daily".
+#' @param sourcedata object: Matrix or data.frame or ascii file of raw data.
 #' @param field_delimiter char string: field delimiter of file. Default is comma ",".
-#' @param date_format char string: Format of the dates in raw data. Default is YMD. 
-#' @param timeseries xts R object Timeseries of data 
+#' @param date_format char string: Format of the dates in raw data. Default is YYYY-MM-DD. 
+#' @param timeseries object : xts R object Timeseries of data 
 #' @seealso \code{\link{},\link{biometeo}}
 #' @author  Istituto di Biometeorologia Firenze Italy  Alfonso crisci \email{a.crisci@@ibimet.cnr.it} ASL 2 LUCCA Marco Selmi \email{m.selmi@@usl2.toscana.it} 
 #' @keywords  metorological data 
