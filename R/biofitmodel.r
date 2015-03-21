@@ -76,7 +76,10 @@ biofitmodel  <- function(i_biometeo,
 										                  i_bioparameters=biopar_list[[i]],
                                                                                                   stocastic = stocastic,
                                                                                                   n_sampling = n_sampling,
-                                                                                                   inibition = inibition)            },
+                                                                                                   inibition = inibition);
+                                                                                                   success_vector[i] = TRUE
+                                                                                                   message(paste("Processed case:", i,"Simulation ok!"))
+                                                                                                   },
                                                                                 error=function(cond) {
                                                                                                   success_vector[i] = FALSE
                                                                                                   simul_ts[[i]] = NA
@@ -85,8 +88,9 @@ biofitmodel  <- function(i_biometeo,
                                                                                                   message(paste("Processed case:", i,"Simulation aborted!"))
                                                                                              },
                                                                                 finally=     {
-                                                                                             success_vector[i] = TRUE
-											     message(paste("Processed case:", i,"Simulation ok!"))
+                                                                                             
+											      message(paste("Processed case:", i,"Done!"))
+                                                                                                  
 
                                                                                              }
                                                                                        )
