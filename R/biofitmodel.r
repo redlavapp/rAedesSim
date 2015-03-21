@@ -96,7 +96,7 @@ biofitmodel  <- function(i_biometeo,
 
                                                                                              }
                                                                                        )
-						                if (success_vector[i] != TRUE) {
+						                if (success_vector[i] == TRUE) {
 											        Eggs=simulation$ts_population$eggs+simulation$ts_population$diapausant_eggs
                                                                                                 Eggs_no_diap=simulation$ts_population$eggs
                                                                                                 Eggs_obs=i_monitoring$ts_data
