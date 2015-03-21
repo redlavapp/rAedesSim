@@ -190,3 +190,4 @@ biofitmodel  <- function(i_biometeo,
                 class(object) <- "biofitmodel"
                 return(object)
 }
+
