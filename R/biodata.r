@@ -1,9 +1,9 @@
 #' biodata
 #'
 #' @description 
-#' \code{biodata} Biodata is a rAedesSim S3 class to describe data collection from the field concerning.
-#' @param parameter_definition char string: Name of site of observations.
-#' @param units char string: Measure unity of observations.  
+#' \code{biodata} Biodata is a rAedesSim S3 class to describe data collected during  field monitoring.
+#' @param parameter_definition char string: Name of observative parameter collected. Default are Eggs.
+#' @param units char string: Indicate the measure unity of the paraemter observed.  
 #' @param location char string: Name of site of observations. 
 #' @param instrument  char string: Name of engine to provide observation
 #' @param network  char string: If data is collected inside an observative network.
@@ -28,7 +28,7 @@
 #' @param nasa_radiance numeric: Night radiance value. Is a proxy for urbanity.
 #' @param feature_population: population density estimation.
 #' @return Rbiosim object Biodata object 
-#' @author   Istituto di Biometeorologia Firenze Alfonso crisci \email{a.crisci@@ibimet.cnr.it} ASL 2 LUCCA  Marco Selmi \email{m.selmi@@usl2.toscana.it} 
+#' @author  Istituto di Biometeorologia Firenze Alfonso Crisci \email{a.crisci@@ibimet.cnr.it} ASL 2 LUCCA  Marco Selmi \email{m.selmi@@usl2.toscana.it} 
 #' @keywords  biomodel 
 #'
 #' 
