@@ -73,7 +73,7 @@ biofitmodel  <- function(i_biometeo,
                              for ( i in seq_along(biopar_list)){ message(paste("Working on:", i));
                                                                  success_vector[i] = TRUE
                                                                                                  
-                                                                 simulation = tryCatch({biomodel( i_biometeo=i_biometeo,
+                                                                  tryCatch({simulation = biomodel( i_biometeo=i_biometeo,
                                                                                                   i_biocontainer=i_biocontainer,
 												  i_biopopulation=i_biopopulation,
 										                  i_bioparameters=biopar_list[[i]],
