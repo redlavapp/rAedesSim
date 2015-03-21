@@ -61,17 +61,14 @@ biofitmodel  <- function(i_biometeo,
 			    replies=cbind(merge(range_alpha_a,range_alpha_l),z=rep(range_density_l,nrow(merge(range_alpha_a,range_alpha_l))))
 			    replies=replies[,1:3]
 			    biopar_list=list()
-				
-				for ( i in 1:nrow(replies)) { biopar_list[[i]]=bioparameters(alfa_l=replies$y[i], alfa_a=replies$x[i],l_density=replies$z[i])}
-				
+			    for ( i in 1:nrow(replies)) { biopar_list[[i]]=bioparameters(alfa_l=replies$y[i], alfa_a=replies$x[i],l_density=replies$z[i])}
 			    #########################################################################################
 			    # Create list for outcomes
-				
-			     simul_ts=list();
-			     simul_RMSE=numeric(nrow(replies));
-			     simul_RMSE_no_diap=numeric(nrow(replies));
-			     success_vector=logical(nrow(replies));
-			     ########################################################################################################
+			    simul_ts=list();
+			    simul_RMSE=numeric(nrow(replies));
+			    simul_RMSE_no_diap=numeric(nrow(replies));
+			    success_vector=logical(nrow(replies));
+			    #######################################################################################################
 				
                              for ( i in seq_along(biopar_list)){ message(paste("Working on:", i));
                                                                  simulation = tryCatch({biomodel( i_biocontainer=i_biocontainer,
