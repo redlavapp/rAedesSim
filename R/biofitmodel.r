@@ -74,29 +74,27 @@ biofitmodel  <- function(i_biometeo,
 			     ########################################################################################################
 				
                              for ( i in seq_along(biopar_list)){ message(paste("Working on:", i));
- 
-				                                simulation = tryCatch({biomodel(i_biometeo=i_biometeo,
-                                                                                           i_biocontainer=i_biocontainer,
-																						   i_biopopulation=i_biopopulation,
-										                                                   i_bioparameters=biopar_list[[i]],
-                                                                                           stocastic = stocastic,
-                                                                                           n_sampling = n_sampling,
-                                                                                           inibition = inibition)
-												                                       },
+                                                                 simulation = tryCatch({biomodel( i_biocontainer=i_biocontainer,
+												  i_biopopulation=i_biopopulation,
+										                  i_bioparameters=biopar_list[[i]],
+                                                                                                  stocastic = stocastic,
+                                                                                                  n_sampling = n_sampling,
+                                                                                                   inibition = inibition)            },
                                                                                 error=function(cond) {
-                                                                                           success_vector[i] = FALSE
-                                                                                           simul_ts[[i]] = NA
-                                                                                           simul_RMSE[i]=NA
-                                                                                           simul_RMSE_no_diap[i]=NA
-                                                                                           message(paste("Processed case:", i,"Simulation aborted!"))
+                                                                                                  success_vector[i] = FALSE
+                                                                                                  simul_ts[[i]] = NA
+                                                                                                  simul_RMSE[i]=NA
+                                                                                                  simul_RMSE_no_diap[i]=NA
+                                                                                                  message(paste("Processed case:", i,"Simulation aborted!"))
                                                                                              },
                                                                                 finally=     {
-                                                                                           success_vector[i] = TRUE
-																						   message(paste("Processed case:", i,"Simulation ok!"))
+                                                                                             success_vector[i] = TRUE
+											     message(paste("Processed case:", i,"Simulation ok!"))
+
                                                                                              }
                                                                                        )
 						                if (success_vector[i] == TRUE) {
-													                                            Eggs=simulation$ts_population$eggs+simulation$ts_population$diapausant_eggs
+											        Eggs=simulation$ts_population$eggs+simulation$ts_population$diapausant_eggs
                                                                                                 Eggs_no_diap=simulation$ts_population$eggs
                                                                                                 Eggs_obs=i_monitoring$ts_data
                                                                                                 merged=merge.xts(Eggs,Eggs_obs,join = "inner");
