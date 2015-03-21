@@ -74,13 +74,13 @@ biofitmodel  <- function(i_biometeo,
                                                                  success_vector[i] = TRUE
                                                                                                  
                                                                  simulation = tryCatch({biomodel( i_biometeo=i_biometeo,
-                                                                                                 i_biocontainer=i_biocontainer,
+                                                                                                  i_biocontainer=i_biocontainer,
 												  i_biopopulation=i_biopopulation,
 										                  i_bioparameters=biopar_list[[i]],
                                                                                                   stocastic = stocastic,
                                                                                                   n_sampling = n_sampling,
-                                                                                                   inibition = inibition);
-                                                                                                    message(paste("Processed case:", i,"Simulation ok!"))
+                                                                                                  inibition = inibition);
+                                                                                                  message(paste("Processed case:", i,"Simulation ok!"))
                                                                                                    },
                                                                                 error=function(cond) {
                                                                                                   success_vector[i] = FALSE
