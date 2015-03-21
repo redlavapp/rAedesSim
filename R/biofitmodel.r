@@ -71,14 +71,15 @@ biofitmodel  <- function(i_biometeo,
 			    #######################################################################################################
 				
                              for ( i in seq_along(biopar_list)){ message(paste("Working on:", i));
+                                                                 success_vector[i] = TRUE
+                                                                                                 
                                                                  simulation = tryCatch({biomodel( i_biocontainer=i_biocontainer,
 												  i_biopopulation=i_biopopulation,
 										                  i_bioparameters=biopar_list[[i]],
                                                                                                   stocastic = stocastic,
                                                                                                   n_sampling = n_sampling,
                                                                                                    inibition = inibition);
-                                                                                                   success_vector[i] = TRUE
-                                                                                                   message(paste("Processed case:", i,"Simulation ok!"))
+                                                                                                    message(paste("Processed case:", i,"Simulation ok!"))
                                                                                                    },
                                                                                 error=function(cond) {
                                                                                                   success_vector[i] = FALSE
@@ -94,7 +95,7 @@ biofitmodel  <- function(i_biometeo,
 
                                                                                              }
                                                                                        )
-						                if (success_vector[i] == TRUE) {
+						                if (success_vector[i] != TRUE) {
 											        Eggs=simulation$ts_population$eggs+simulation$ts_population$diapausant_eggs
                                                                                                 Eggs_no_diap=simulation$ts_population$eggs
                                                                                                 Eggs_obs=i_monitoring$ts_data
