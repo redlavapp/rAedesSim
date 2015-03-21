@@ -78,4 +78,35 @@ simulation=biomodel(biopopulation(eggs=100,larvae=0,pupae=0,adults=0,eggs_diap=1
 viewwhere(simulation)
 
 ##################################################################################################
+# Fitting parametrs for  one locationCastiglione_della_Pescaia ad view plot Observed vs Simulated Eggs.
+
+
+i_biocontainer=biocontainer(nrecipients=100,
+                                 watermodel=trappola_wmodel,
+                                 model_type="lin",
+                                 lat=Castiglione_della_Pescaia_P4_monitoring$lat,
+                                 lon=Castiglione_della_Pescaia_P4_monitoring$lon,
+                                 elevation=Castiglione_della_Pescaia_P4_monitoring$elevation
+								 )
+
+i_biometeo=biometeo(Castiglione_della_Pescaia_P4_meteo,i_biocontainer)
+
+
+i_biopopulation=biopopulation(eggs=100,larvae=0,pupae=0,adults=0,eggs_diap=10)
+
+
+simulation_fit=biofitmodel(i_biometeo=i_biometeo,
+                           i_biopopulation=i_biopopulation,
+                           i_biocontainer=i_biocontainer,
+                           i_monitoring=Castiglione_della_Pescaia_P4_monitoring,
+		                   range_alpha_a=c(0,seq(0,0.002,0.001)),
+		                   range_alpha_l=seq(0.6,1.6,0.2),
+                           range_density_l=70,
+						   plotresults=TRUE
+			               )	
+
+
+simulation_fit
+
+##################################################################################################
 ```
