@@ -132,7 +132,7 @@ biofitmodel  <- function(i_biometeo,
 				
 				plot_ts=NULL
 				if ( plotresults == TRUE)   { plot_ts=plot(simul_ts[[best]],
-				                                      main = paste("Observed (red) & Assessed (Black) - ",as.character(i_biocontainer$type),"-","Stage's competivity index: Larvae=",replies_best[1],"   Adults=",replies_best[1],"   Larval MaxDensity=",replies_best[3]),
+				                                      main = paste("Observed (red) & Assessed (Black) - ",as.character(i_biocontainer$type),"-","Stage's competivity index: Larvae=",replies_best[2],"   Adults=",replies_best[1],"   Larval MaxDensity=",replies_best[3]),
 				                                      cex.axis = 1.2,
 				                                      cex.main = 2.5,
 				                                      legend.loc = "bottomright", 
