@@ -116,9 +116,9 @@ biofitmodel  <- function(i_biometeo,
 				#########################################################################################################################################
 				# Fill spatial objects
 				
-				i_biocontainer$sp_obj$alpha_a=replies_best[1]
-				i_biocontainer$sp_obj$alpha_l=replies_best[2]
-				i_biocontainer$sp_obj$density_max_l=replies_best[3]
+				i_biocontainer$sp_obj$alpha_a=as.numeric(replies_best[2])
+				i_biocontainer$sp_obj$alpha_l=as.numeric(replies_best[1])
+				i_biocontainer$sp_obj$density_max_l=as.numeric(replies_best[3])
 				
 				plot_ts=NULL
 				if ( plotresults == TRUE)   { plot_ts=plot(simul_ts[[best]],
