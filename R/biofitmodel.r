@@ -66,7 +66,6 @@ biofitmodel  <- function(i_biometeo,
 			    # Create list for outcomes
 			    simul_ts=list();
 			    simul_RMSE=numeric(nrow(replies));
-			    simul_RMSE_no_diap=numeric(nrow(replies));
 			    success_vector=logical(nrow(replies));
 			    #######################################################################################################
 				
@@ -86,7 +85,6 @@ biofitmodel  <- function(i_biometeo,
                                                                                                   success_vector[i] = FALSE
                                                                                                   simul_ts[[i]] = NA
                                                                                                   simul_RMSE[i]=NA
-                                                                                                  simul_RMSE_no_diap[i]=NA
                                                                                                   message(paste("Processed case:", i,"Simulation aborted!"))
                                                                                              },
                                                                                 finally=     {
@@ -98,13 +96,10 @@ biofitmodel  <- function(i_biometeo,
                                                                                        )
 						                if (success_vector[i] == TRUE) {
 											        Eggs=simulation$ts_population$eggs+simulation$ts_population$diapausant_eggs
-                                                                                                Eggs_no_diap=simulation$ts_population$eggs
                                                                                                 Eggs_obs=i_monitoring$ts_data
                                                                                                 merged=merge.xts(Eggs,Eggs_obs,join = "inner");
-                                                                                                merged_no_diap=merge.xts(Eggs_no_diap,Eggs_obs,join = "inner");
                                                                                                 simul_ts[[i]]=merged; 
                                                                                                 simul_RMSE[i]=sqrt(verify(as.vector( merged$eggs), as.vector(merged$Eggs_obs), frcst.type = "cont", obs.type = "cont")$MSE)
-                                                                                                simul_RMSE_no_diap[i]=sqrt(verify(as.vector( merged_no_diap$eggs), as.vector(merged_no_diap$Eggs_obs), frcst.type = "cont", obs.type = "cont")$MSE)
                                                                                                 
                                                                                                 }													  
 								}	
@@ -115,10 +110,8 @@ biofitmodel  <- function(i_biometeo,
 				# Fill spatial objects
 				
 				best=which.min(simul_RMSE)
-				best_no_diap=which.min(simul_RMSE_no_diap);
 				names(replies)<-c("alpha_a","alpha_l","density_max_l");
 				replies_best=replies[best,]
-				replies_best_no_diap=replies[best_no_diap,]
 				
 				#########################################################################################################################################
 				# Fill spatial objects
@@ -126,13 +119,10 @@ biofitmodel  <- function(i_biometeo,
 				i_biocontainer$sp_obj$alpha_a=replies_best[1]
 				i_biocontainer$sp_obj$alpha_l=replies_best[2]
 				i_biocontainer$sp_obj$density_max_l=replies_best[3]
-				i_biocontainer$sp_obj$alpha_a_no_diap=replies_best_no_diap[1]
-				i_biocontainer$sp_obj$alpha_l_no_diap=replies_best_no_diap[2]
-				i_biocontainer$sp_obj$density_max_l_no_diap=replies_best_no_diap[3]
 				
 				plot_ts=NULL
 				if ( plotresults == TRUE)   { plot_ts=plot(simul_ts[[best]],
-				                                      main = paste("Observed (red) & Assessed (Black) - ",as.character(i_biocontainer$type),"-","Stage's competivity index: Larvae=",replies_best[2],"   Adults=",replies_best[1],"   Larval MaxDensity=",replies_best[3]),
+				                                      main = paste("Observed (red) & Assessed (Black) - ",as.character(i_monitoring$location),"-",as.character(i_biocontainer$type),"-","Stage's competivity index: Larvae=",as.character(replies_best$alpha_l)," Adults=",as.character(replies_best$alpha_a)," Larval MaxDensity=",replies_best[3]),
 				                                      cex.axis = 1.2,
 				                                      cex.main = 2.5,
 				                                      legend.loc = "bottomright", 
@@ -141,22 +131,18 @@ biofitmodel  <- function(i_biometeo,
 				                             }
 				#########################################################################################################################################
 			   
-                object  <-  list(name_model="rAedesSim",
+                                object  <-  list(name_model="rAedesSim",
+                                                        location=as.character(i_monitoring$location),
 							guess_parameter=replies,
 							best_simul = simul_ts[[best]],
-							best_biopar_no_diap = simul_ts[[best_no_diap]],
 							best_simul_RMSE = simul_RMSE[[best]],
-							best_nodiap_RMSE = simul_RMSE_no_diap[[best_no_diap]],
 							par_fitted_best=replies_best,
-							par_fitted_best_no_diap=replies_best_no_diap,
 							simul_RMSE=simul_RMSE,
-							simul_RMSE_no_diap=simul_RMSE_no_diap,
 							n_replies=length(na.omit(simul_RMSE)),
 							stocastic=stocastic,
 							n_sampling=n_sampling,
 							inibition=inibition,
 							ID=i_biocontainer$ID,
-							site_name=i_biocontainer$site_name,
 							sp_obj=i_biocontainer$sp_obj,
 							lat=i_biocontainer$lat,
 							lon=i_biocontainer$lon,
@@ -169,21 +155,17 @@ biofitmodel  <- function(i_biometeo,
                 #########################################################################################################################################
 				             	    
                 attr(object,"name_model") <- "Model's name"
+                attr(object,"location") <- "Location's name."
                 attr(object,"guess_parameter") <- "Matrix of guess values."
                 attr(object,"best_simul") <- "Timeseries object: Best simulation taking into account diapause."
-                attr(object,"best_biopar_no_diap") <-  "Timeseries object: Best simulation NOT taking  into account diapause."
                 attr(object,"best_simul_RMSE") <- "Root mean square error of simulation"
-                attr(object,"best_nodiap_RMSE") <- "Root mean square error of simulation NOT taking  into account diapause."
                 attr(object,"par_fitted_best") <- "Parameter fitted."
-                attr(object,"par_fitted_best_no_diap") <- "Parameter fitted NOT taking  into account diapause."
                 attr(object,"simul_RMSE") <- "Root mean square error for all simulation."
-                attr(object,"simul_RMSE_no_diap") <- "Root mean square error for all simulation NOT taking  into account diapause."
                 attr(object,"n_replies") <- "Number of simulation."
                 attr(object,"stocastic") <- "If stocasticity in simulation are considered."
                 attr(object,"n_sampling") <- "Number of resampling."
                 attr(object,"inibition") <- "Logical if larval inibition are taken into account in simulation."
                 attr(object,"ID")<-"ID label of container set."
-                attr(object,"site_name")<-"Name of site."
                 attr(object,"sp_obj")<-"SpatialPointDataFrame of location."
                 attr(object,"lat")<-"latitude coordinates of simulations."
                 attr(object,"lon")<-"longitude coordinates of simulations."
