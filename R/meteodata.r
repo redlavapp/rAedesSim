@@ -72,12 +72,21 @@ meteodata<-function(station_name="Pisa San Giusto",
 				    lat_geo=as.numeric(coordinates(newsp))[2]
 				    
 					
-				    if ( is.null(sourcedata)) { stop( "To build meteodata valid object almost a data source is required as : data.frame / ascii  formatted file.\n
-                                                     Format must be daily with fields : Date of day better in YYYY-MM-DD format (dates /data), Mean temperature (tmed),\n
-													 Maximum temperature (tmax), Minimum temperature (tmin), Mean relative humidity (urel/rhum), Cumulated rainfall ( prec).\n
-													 Header is suggested to avoid variable error. Mean temperature and minimum temperature fileds are required."
-													 ) 
-											} 
+				    if ( is.null(sourcedata)) { 
+				                               stop( "To build meteodata valid object almost a data source is required as : \n
+				                                A) data.frame. 
+				                                B) csv ascii  formatted file.\n
+                                                                Format must be daily with fields : 
+                                                                Date of day better in YYYY-MM-DD format (dates). \n 
+                                                                Mean temperature (tmed). \n
+								Maximum temperature (tmax).\n 
+								Minimum temperature (tmin).\n 
+								Mean relative humidity (rhum).\n 
+								Cumulated rainfall ( prec).\n
+								Header name are suggested to avoid  errors. 
+								Mean temperature and minimum temperature fields are required."
+						                ) 
+								} 
 				   
 				   #################################################################################################################
 				  
@@ -98,17 +107,17 @@ meteodata<-function(station_name="Pisa San Giusto",
 				   
 				   if ( length(grep("anno",names(filemeteo)))>0 && length(grep("mese",names(filemeteo)))>0 && length(grep("mese",names(filemeteo))>0 ))
                                           { names(filemeteo)<-gsub("anno","year",names(filemeteo))
-										    names(filemeteo)<-gsub("mese","month",names(filemeteo))
-											names(filemeteo)<-gsub("giorno","day",names(filemeteo))
-											names(filemeteo)<-gsub("urel","rhum",names(filemeteo))
-										    names(filemeteo)<-gsub("data","dates",names(filemeteo))
+										 names(filemeteo)<-gsub("mese","month",names(filemeteo))
+									         names(filemeteo)<-gsub("giorno","day",names(filemeteo))
+									         names(filemeteo)<-gsub("urel","rhum",names(filemeteo))
+										 names(filemeteo)<-gsub("data","dates",names(filemeteo))
 										  
 										  }	
 				   
 				   if ( !length(grep("year",names(filemeteo)))>0 && !length(grep("month",names(filemeteo)))>0 && length(grep("day",names(filemeteo))>0 ))
-                                          { filemeteo$year<-year(filemeteo$dates)
-										    filemeteo$month<-month(filemeteo$dates)
-										    filemeteo$day<-day(filemeteo$dates)
+                                                                               { filemeteo$year<-year(filemeteo$dates)
+										 filemeteo$month<-month(filemeteo$dates)
+										 filemeteo$day<-day(filemeteo$dates)
 										  }  
 				   #################################################################################################################
 				   
